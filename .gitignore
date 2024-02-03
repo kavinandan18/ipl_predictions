@@ -1,0 +1,31 @@
+# Virtual Environment
+venv/
+.env
+# Compiled Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Database
+db.sqlite3
+
+# Log files
+*.log
+
+# Temporary files
+*.swp
+*.swo
+*~
+
+# Media files
+media/
+
+# Static files
+staticfiles/
+
+# Environment variables
+.env
+
+# Ignore Visual Studio Code settings
+.vscode/

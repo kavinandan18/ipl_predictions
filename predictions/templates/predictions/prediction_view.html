@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <style>
+    .gradient-h2 {
+      color: #fff;
+      text-align: center;
+      background: linear-gradient(to right, #3498db, #2ecc71);
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+    }
+    .card{
+        border: none;
+    }
+    .card-header-danger {
+      text-transform: uppercase;
+      color: #fff;
+      background: linear-gradient(to right, #e74c3c, #3498db);
+    }
+
+    .card-body {
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      color: black;
+      border: none;
+      border-radius: 0px;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .card:hover .card-body{
+      transform: scale(1.05);
+    }
+
+    .edit-delete-icons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .edit-delete-icons a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .edit-delete-icons i {
+      font-size: 1.5rem;
+    }
+
+    .edit-delete-icons i:hover {
+      transform: scale(1.2);
+    }
+  </style>
+
+  <div class="container mt-4">
+    <h2 class="gradient-h2">Your Predictions</h2>
+
+    <div class="row">
+      {% for prediction in predictions %}
+        <div class="col-md-3 mb-4">
+          <div class="card text-white bg-danger mb-3">
+            <div class="card-header card-header-danger">{{ prediction.match.team1.name }} vs {{ prediction.match.team2.name }}</div>
+            <div class="card-body">
+              <p class="card-text">Date: {{ prediction.match.date|date:"F j, Y" }}</p>
+              <p class="card-text">Time: {{ prediction.match.date|time:"P" }}</p>
+              <p class="card-text">Your Prediction: {{ prediction.chosen_winner }}</p>
+              <div class="edit-delete-icons">
+                <a href="{% url 'edit_prediction' prediction.id %}"><i class="fas fa-edit" style="color: #3498db; margin-right: 10px;"></i></a>
+                <a href="{% url 'delete_prediction' prediction.id %}"><i class="fas fa-trash" style="color: #e74c3c;"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="card">
+    <div class="card-body">
+      <h2 class="card-title">Prediction Success</h2>
+      <p class="card-text">Your prediction was successfully saved.</p>
+      <a href="{% url 'index' %}" class="btn btn-primary">Back to predictions</a>
+    </div>
+  </div>
+{% endblock %}

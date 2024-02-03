@@ -1,0 +1,34 @@
+<!-- predictions/templates/predictions/prediction_form.html -->
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h2 class="gradient-h2">Make Prediction</h2>
+    <div class="card mb-3" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); border: none; border-radius: 0;">
+      <div class="card-body" style="padding: 20px;">
+        <form method="post" action="{% url 'make_prediction' match.id %}" style="max-width: 400px; margin: 0 auto;">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <button type="submit" class="btn btn-primary" style="background: linear-gradient(to right, #3498db, #2ecc71); border: 1px solid #3498db; color: #fff; transition: background 0.3s;">Submit Prediction</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .gradient-h2 {
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+      background: linear-gradient(to right, #3498db, #2ecc71);
+      border-radius: none;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(to right, #2ecc71, #3498db);
+      border: 1px solid #2ecc71;
+    }
+  </style>
+{% endblock %}

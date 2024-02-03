@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<style>
+    .btn-rounded-orange {
+        background-color: #ff6600;
+        border-color: #ff6600;
+        border-radius: 20px;
+        padding: 7px 25px;
+        font-size: 20px;
+    }
+
+    .invalid-feedback {
+        display: block;
+        color: #e74c3c;
+    }
+
+    .card-title {
+        background: linear-gradient(to right, #3498db, #2ecc71);
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 20px;  /* Added margin for better spacing */
+    }
+
+    .text-white a {
+        color: #e74c3c;
+    }
+    .text-white p {
+        color: #000000;
+    }
+</style>
+
+<div class="col-md-6 mx-auto">
+    <div class="card my-4" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+        <div class="card-body">
+            <h2 class="card-title text-center">Login</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-primary btn-rounded-orange">Login</button>
+            </form>
+            <div class="mt-2 text-white">
+                <p>Don't have an account? <a href="{% url 'register' %}" style="text-decoration: none;">Register here.</a></p>
+                <p>Forgot your password? <a href="{% url 'reset_password' %}" style="text-decoration: none;">Reset it here.</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

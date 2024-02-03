@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <style>
+    .gradient-h2 {
+      color: #fff;
+      text-align: center;
+      background: linear-gradient(to right, #3498db, #2ecc71);
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+    }
+    .card{
+        border: none;
+    }
+    .card-header-info {
+      text-transform: uppercase;
+      color: #fff;
+      background: #ff7e5f;
+      background: -webkit-linear-gradient(to right, #feb47b, #ff7e5f);
+      background: linear-gradient(to right, #feb47b, #ff7e5f);
+    }
+
+    .card-header-danger {
+      text-transform: uppercase;
+      color: #fff;
+      background: linear-gradient(to right, #e74c3c, #c0392b);
+    }
+
+    .card-body {
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      color: black;
+      border: none;
+      border-radius: 0;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .card:hover .card-body {
+      transform: scale(1.05);
+    }
+
+    .make-prediction-btn {
+      background-color: #2ecc71;
+      border-color: #2ecc71;
+      width: 100%;
+      transition: background-color 0.6s ease-in-out;
+    }
+
+    .make-prediction-btn:hover {
+      background-color: #27ae60;
+    }
+
+    .icon {
+      font-size: 1.5rem;
+      margin-right: 10px;
+    }
+  </style>
+
+  <!-- Include Font Awesome CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofNCf9brF+0KDA5SII2ZvbT+Jgw5V9l2od" crossorigin="anonymous">
+
+  <div class="container mt-4">
+    <h2 class="gradient-h2">Matches and Make Predictions</h2>
+
+    <div class="row">
+      {% for match in matches %}
+        <div class="col-md-4 mb-4">
+          <a href="{% url 'view_match' match.id %}" style="text-decoration: none; color: inherit;">
+            <div class="card text-white bg-info mb-3" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+              <div class="card-header card-header-info">{{ match.team1.name }} ({{match.team1.short_name}}) vs {{ match.team2.name }} ({{match.team2.short_name}})</div>
+              <div class="card-body">
+                <p class="card-text">Date: {{ match.date|date:"F j, Y" }}</p>
+                <p class="card-text">Time: {{ match.date|time:"P" }}</p>
+                {% if match.winner %}
+                  <p class="card-text">Winner: {{ match.winner.name }}</p>
+                {% else %}
+                  <p class="card-text">Winner: Not decided yet</p>
+                {% endif %}
+                <a href="{% url 'edit_match' match.id %}" class="icon"><i class="fas fa-edit" style="color: #3498db;"></i></a>
+                <a href="{% url 'delete_match' match.id %}" class="icon"><i class="fas fa-trash" style="color: #e74c3c;"></i></a>
+                <a href="{% url 'make_prediction' match.id %}" class="btn btn-primary make-prediction-btn">
+                  <i class="fas fa-plus-circle icon"></i>Make Prediction
+                </a>
+              </div>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

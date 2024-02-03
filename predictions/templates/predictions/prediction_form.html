@@ -1,0 +1,19 @@
+<!-- predictions/templates/predictions/prediction_form.html -->
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h2 style="color: #333;">Make Prediction for {{ match }}</h2>
+    <div class="card mb-3" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+      <div class="card-body">
+        <h5 class="card-title">{{ match }}</h5>
+        <form method="post" action="{% url 'make_prediction' match.id %}">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <button type="submit" class="btn btn-primary">Submit Prediction</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

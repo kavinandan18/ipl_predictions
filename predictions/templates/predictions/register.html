@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<style>
+    .btn-rounded-green {
+        background-color: #27ae60;
+        border-color: #27ae60;
+        border-radius: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+
+    .invalid-feedback {
+        display: block;
+        color: #e74c3c;
+    }
+
+    .card-title {
+        background: linear-gradient(to right, #3498db, #2ecc71);
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 20px;  /* Added margin for better spacing */
+    }
+
+    .text-black a {
+        color: #3498db;
+    }
+</style>
+
+<div class="col-md-6 mx-auto">
+    <div class="card my-4" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+        <div class="card-body">
+            <h2 class="card-title text-center">Register</h2>
+            <form method="post" novalidate>
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-primary btn-rounded-green">Register</button>
+            </form>
+            <div class="mt-3 text-center text-black">
+                <p>Already have an account? <a href="{% url 'login' %}" style="text-decoration: none;">Login here.</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

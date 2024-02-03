@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .jumbotron {
+        background: linear-gradient(to right, #3498db, #2ecc71);
+        color: #fff;
+        border-radius: 0; /* Removed border radius */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        margin-bottom: 40px;
+    }
+
+    .card {
+        border-radius: 0; /* Removed border radius */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    .card-create-prediction {
+        background: linear-gradient(to right, #2ecc71, #3498db);
+    }
+
+    .card-view-matches {
+        background: linear-gradient(to right, #3498db, #c0392b);
+    }
+
+    .btn-rounded-green {
+        background-color: #ff6600;
+        border-color: #27ae60;
+        border-radius: 20px;
+    }
+
+    .btn-rounded-blue {
+        background-color: #ff6600;
+        border-color: #3498db;
+        border-radius: 20px;
+    }
+</style>
+
+<div class="jumbotron text-center">
+    <h1 class="display-4">Welcome to IPL Predictions!</h1>
+    <p class="lead">Make your predictions and stay tuned for the results. Whether you're a cricket enthusiast or just love the thrill of predicting match outcomes, we've got you covered!</p>
+    <hr class="my-4">
+    {% if user.is_authenticated %}
+        <p class="lead">Start making predictions now. <a href="{% url 'index' %}" class="btn btn-primary btn-lg btn-rounded-blue">View Matches</a></p>
+    {% else %}
+        <p class="lead">New here? <a href="{% url 'register' %}" class="btn btn-primary btn-lg btn-rounded-green">Get Started</a></p>
+    {% endif %}
+</div>
+
+<div class="container mt-4">
+    {% if user.is_authenticated %}
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card text-white card-create-prediction">
+                    <div class="card-header">Create Match Prediction</div>
+                    <div class="card-body">
+                        <p class="card-text">Predict the outcome of upcoming matches and compete with others. Get ready to showcase your cricket instincts!</p>
+                        <a href="{% url 'create_match' %}" class="btn btn-primary btn-rounded-green">Create Prediction</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card text-white card-view-matches">
+                    <div class="card-header">View Upcoming Matches</div>
+                    <div class="card-body">
+                        <p class="card-text">Explore the details of upcoming matches and see predictions from others. Stay informed about the latest cricket matchups!</p>
+                        <a href="{% url 'index' %}" class="btn btn-primary btn-rounded-blue">View Matches</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <p class="lead text-center">To access more features, please <a href="{% url 'login' %}">login</a> or <a href="{% url 'register' %}">register</a>.</p>
+    {% endif %}
+</div>
+
+{% endblock %}
